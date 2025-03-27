@@ -4,17 +4,16 @@ pipeline{
                   maven 'M2_HOME'
          }
          stages{
+                  stage('sonar-scan'){
+                           steps{
+                                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Ningendo7_geo-app'
+                           }
+                  }
                   stage('maven'){
                           steps{ 
                            sh 'mvn clean validate compile install test package'
                   }
          }
-                  stage('upload artifact'){
-                           steps{
-                                    sh 'curl -uadmin:AP3jjMdKPvhkxQ3B1QUyyBMSnK5 -T \
-                                    target/bio*.jar \
-                                     "http://192.168.50.10:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
-                           }
-                  }
+                 
 }
 }
