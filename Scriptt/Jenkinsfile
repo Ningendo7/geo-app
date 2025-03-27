@@ -6,7 +6,7 @@ pipeline{
          stages{
                   stage('sonar-scan'){
                            steps{
-                                    sh 'mv verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Ningendo7_geo-app'
+                                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Ningendo7_geo-app'
                            }
                   }
                   stage('maven'){
