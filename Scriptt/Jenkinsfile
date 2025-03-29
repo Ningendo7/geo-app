@@ -24,6 +24,26 @@ pipeline{
                            807906459006.dkr.ecr.us-east-1.amazonaws.com'
                   }
          }
+         stage('docker build'){
+                  steps{
+                           sh 'docker build -t devops:v.${BUILD_ID} .'
+                           sh 'docker build -t devops:latest .'
+                  }
+         }
+         stage('Image tagging'){
+        steps{
+          sh 'docker tag devops:v.${BUILD_ID} \
+          807906459006.dkr.ecr.us-east-1.amazonaws.com/devops:v.${BUILD_ID}'
+          sh 'docker tag devops:latest \
+          807906459006.dkr.ecr.us-east-1.amazonaws.com/devops:latest'
+        }
+    }
+    stage('push image'){
+        steps{  
+       sh 'docker push 807906459006.dkr.ecr.us-east-1.amazonaws.com/devops:v.${BUILD_ID}'
+       sh 'docker push 807906459006.dkr.ecr.us-east-1.amazonaws.com/devops:latest'
+    }
+    }
                  
 }
 }
